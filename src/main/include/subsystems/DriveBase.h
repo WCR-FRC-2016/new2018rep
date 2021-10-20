@@ -27,7 +27,7 @@ class DriveBase : public frc2::SubsystemBase {
  public:
   DriveBase();
   void DriveBaseInit();
-  void InitDefaultCommand();
+  void Periodic();
   void ArcadeDrive(double xAxis, double yAxis);
   void RampSwitch(bool rampOn);
   void reverseDrive(bool bButton);

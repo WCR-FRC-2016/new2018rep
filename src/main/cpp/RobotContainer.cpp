@@ -9,7 +9,9 @@
 
 RobotContainer::RobotContainer() {
     m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
-    [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
-    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
+    //[this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
+    //[this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
+    [this] {return 0.5;},
+    [this] {return 0.0;}
     ));
 }

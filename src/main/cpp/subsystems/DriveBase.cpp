@@ -188,7 +188,7 @@ void DriveBase::RampSwitch(bool rampOn) {
     BackR->ConfigOpenloopRamp(ramp, 0);
 
 }
-void DriveBase::InitDefaultCommand() {
+void DriveBase::Periodic() {
   if (!initialized) {
 		DriveBase::DriveBaseInit();
 	}
