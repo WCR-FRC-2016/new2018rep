@@ -5,28 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ArcadeDrive.h"
+#include "commands/Test.h"
 
-ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
+Test::Test(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivebase});
 }
 
 // Called when the command is initially scheduled.
-void ArcadeDrive::Initialize() {}
+void Test::Initialize() {
+   //wpi::outs() << "Debug Statement 4\n";
+}
 
 // Called repeatedly when this Command is scheduled to run
-void ArcadeDrive::Execute() {
-  //wpi::outs() << "ArcadeDrive starts\n";
-  double passRotation = (abs(m_rotation()*1000) > 200?m_rotation():0.0);
-  double passForward = (abs( m_forward()*1000) > 200?m_forward():0.0);
-  //wpi::outs() << "ArcadeDrive functions\n";
-  m_drivebase->ArcadeDrive(passRotation, passForward);
-  //wpi::outs() << "ArcadeDrive ends\n";
+void Test::Execute() {
+    wpi::outs() << "TEST!!!\n";
+    wpi::outs() << m_rotation() << " - " << m_forward() << "\n";
 }
 
 // Called once the command ends or is interrupted.
-void ArcadeDrive::End(bool interrupted) {}
+void Test::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() { return false; }
+bool Test::IsFinished() { return false; }

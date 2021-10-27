@@ -10,16 +10,18 @@
 #include <frc/RobotDrive.h>
 
 DriveBase::DriveBase() {
-
+	//wpi::outs() << "DriveBase constructed\n";
 }
 
 void DriveBase::DriveBaseInit() {
+	//wpi::outs() << "DriveBase initialized\n";
     initialized = true;
 
     FrontL = new WPI_TalonSRX (frontLeftDrive);
     FrontR = new WPI_TalonSRX (frontRightDrive);
     BackL = new WPI_TalonSRX (backLeftDrive);
     BackR = new WPI_TalonSRX (backRightDrive);
+	_diffDrive = new frc::DifferentialDrive(*FrontL, *FrontR);
 
     FrontR->ConfigFactoryDefault();
     FrontL->ConfigFactoryDefault();
@@ -85,15 +87,17 @@ void DriveBase::DriveBaseInit() {
     FrontR->SetSelectedSensorPosition(0,0,0);
     FrontL->SetSelectedSensorPosition(0,0,0);
 
-    _diffDrive->SetSafetyEnabled(false);
+	// TODO: Figure out what this does (and why we turned it off).
+	// Also figure out why it crashes the code on 2018 robot but not 2019.
+    //_diffDrive->SetSafetyEnabled(false);
 
-    BackL->SetSafetyEnabled(false);
-    BackR->SetSafetyEnabled(false);
-    _diffDrive->SetExpiration(.5);
+    //BackL->SetSafetyEnabled(false);
+    //BackR->SetSafetyEnabled(false);
+    //_diffDrive->SetExpiration(.5); TODO: Figure out what this does. Also figure out why it crashes the code on 2018 robot but not 2019.
 
     BackL->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontLeftDrive);
     BackR->Set(ctre::phoenix::motorcontrol::ControlMode::Follower, frontRightDrive);
-    printf("Done setting up motor \n");
+    //wpi::outs() << "Done setting up motor\n";
 
 		
 }
@@ -177,6 +181,7 @@ void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
 			parsedLeft = parsedY - parsedX;
 			parsedRight = parsedY + parsedX;
 	}
+	//wpi::outs() << "ArcadeDrive function mathematics " << parsedLeft << " " << parsedRight << "\n";
 	_diffDrive->TankDrive(-parsedLeft, parsedRight, false);
 
 }
@@ -191,7 +196,9 @@ void DriveBase::RampSwitch(bool rampOn) {
 void DriveBase::Periodic() {
   if (!initialized) {
 		DriveBase::DriveBaseInit();
+		//wpi::outs() << "Debug Statement 7\n";
 	}
+	//wpi::outs() << "Debug Statement 6\n";
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
 }

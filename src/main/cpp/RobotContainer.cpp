@@ -8,10 +8,19 @@
 #include "RobotContainer.h"
 
 RobotContainer::RobotContainer() {
+   //wpi::outs() << "Debug Statement 1\n";
+    //*
     m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
-    //[this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
-    //[this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand) ;}
-    [this] {return 0.5;},
-    [this] {return 0.0;}
+    [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand)/2;} ,
+    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand)/1.5 ;}
+    //[this] {return 0.5;},
+    //[this] {return 0.0;}
     ));
+   //*/
+   /*
+   m_driveBase.SetDefaultCommand(Test(&m_driveBase, 
+    [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
+    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand);}));
+    //*/
+   //wpi::outs() << "Debug Statement 2\n";
 }

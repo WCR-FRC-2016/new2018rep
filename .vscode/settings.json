@@ -100,5 +100,6 @@
     "cinttypes": "cpp"
   },
   "C_Cpp.errorSquiggles": "Enabled",
-  "C_Cpp.intelliSenseEngineFallback": "Enabled"
+  "C_Cpp.intelliSenseEngineFallback": "Enabled",
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }
