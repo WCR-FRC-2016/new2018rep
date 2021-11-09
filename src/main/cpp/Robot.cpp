@@ -7,9 +7,13 @@
 
 #include "Robot.h"
 #include <frc2/command/CommandScheduler.h>
+#include <cscore_oo.h>
+#include <cameraserver/CameraServer.h>
 
 void Robot::RobotInit() {
-
+  cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+    
+  camera.SetVideoMode(cs::VideoMode::kYUYV, 640, 360, 30);
 }
 
 /**

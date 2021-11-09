@@ -11,7 +11,12 @@
 
 #include "frc/XboxController.h"
 #include "subsystems/DriveBase.h"
+#include "subsystems/ClawPneumatics.h"
+#include "subsystems/ClawMotors.h"
 #include "commands/ArcadeDrive.h"
+#include "commands/ClawMotorsDefault.h"
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/Button.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -27,6 +32,26 @@ class RobotContainer {
  private:
   frc::XboxController m_driverStick{0};
   frc::XboxController m_manStick{1};
+
+  // Wheels In - Manipulator A Button
+  frc2::Button m_manA{[&] {return m_manStick.GetAButton();} };
+  frc2::InstantCommand m_wheelsIn{[this] {m_clawMotors.WheelsIn();}, {&m_clawMotors} };
+
+  // Wheels Out - Manipulator B Button
+  frc2::Button m_manB{[&] {return m_manStick.GetBButton();} };
+  frc2::InstantCommand m_wheelsOut{[this] {m_clawMotors.WheelsOut();}, {&m_clawMotors} };
+  
+  // Open Claw - Manipulator X Button
+  frc2::Button m_manX{[&] {return m_manStick.GetXButton();}};
+  frc2::InstantCommand m_openClaw{[this] {return m_clawPneumatics.OpenClaw();} , {&m_clawPneumatics} };
+  
+  // Close Claw - Manipulator Y Button
+  frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
+  frc2::InstantCommand m_closeClaw{[this] {return m_clawPneumatics.CloseClaw();} , {&m_clawPneumatics} };
   
   DriveBase m_driveBase;
+  ClawPneumatics m_clawPneumatics;
+  ClawMotors m_clawMotors;
+
+  void ConfigureButtonBindings();
 };

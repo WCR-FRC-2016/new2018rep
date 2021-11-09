@@ -22,9 +22,14 @@ const int frontRightDrive = 1; //encoder
 const int backLeftDrive = 15;
 const int backRightDrive = 0;
 
+const int clawLeftMotor = 10;
+const int clawRightMotor = 11;
+
 const double RampTime = 0.325;
 
 const double NominalOutput = 0.25;
 const double MaxOutput = 1.0;
 
 const double PIDDeadband = 0.114; // needs to be tuned.
+
+const double clawMotorSpeed = 0.75;

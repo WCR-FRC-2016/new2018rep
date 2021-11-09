@@ -17,10 +17,21 @@ RobotContainer::RobotContainer() {
     //[this] {return 0.0;}
     ));
    //*/
+   m_clawMotors.SetDefaultCommand(ClawMotorsDefault(&m_clawMotors));
    /*
    m_driveBase.SetDefaultCommand(Test(&m_driveBase, 
     [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
     [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand);}));
     //*/
    //wpi::outs() << "Debug Statement 2\n";
+  ConfigureButtonBindings();
+}
+
+void RobotContainer::ConfigureButtonBindings() {
+   // Configure your button bindings here
+   
+   m_manA.WhileHeld(m_wheelsIn);
+   m_manB.WhileHeld(m_wheelsOut);
+   m_manX.WhenPressed(m_openClaw);
+   m_manY.WhenPressed(m_closeClaw);
 }
