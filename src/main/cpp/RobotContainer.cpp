@@ -17,6 +17,7 @@ RobotContainer::RobotContainer() {
    m_lift.SetDefaultCommand(LiftDefault(&m_lift, 
     [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
    ));
+   m_belt.SetDefaultCommand(BeltDefault(&m_belt));
    //wpi::outs() << "Debug Statement 2\n";
   ConfigureButtonBindings();
 }

@@ -28,6 +28,9 @@ const int clawRightMotor = 11;
 const int liftLeftMotor = 4;
 const int liftRightMotor = 5;
 
+const int beltLeftMotor = 2;
+const int beltRightMotor = 3;
+
 const double RampTime = 0.325;
 
 const double NominalOutput = 0.25;
@@ -37,3 +40,4 @@ const double PIDDeadband = 0.114; // TODO: PID needs to be tuned.
 
 const double clawMotorSpeed = 0.75;
 const double liftMotorSpeedFactor = 0.5;
+const double beltMotorSpeedFactor = 0.5;
