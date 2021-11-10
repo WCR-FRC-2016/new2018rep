@@ -13,8 +13,10 @@
 #include "subsystems/DriveBase.h"
 #include "subsystems/ClawPneumatics.h"
 #include "subsystems/ClawMotors.h"
+#include "subsystems/Lift.h"
 #include "commands/ArcadeDrive.h"
 #include "commands/ClawMotorsDefault.h"
+#include "commands/LiftDefault.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/Button.h>
 
@@ -52,6 +54,7 @@ class RobotContainer {
   DriveBase m_driveBase;
   ClawPneumatics m_clawPneumatics;
   ClawMotors m_clawMotors;
+  Lift m_lift;
 
   void ConfigureButtonBindings();
 };

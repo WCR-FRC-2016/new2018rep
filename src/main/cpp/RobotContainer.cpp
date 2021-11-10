@@ -9,20 +9,14 @@
 
 RobotContainer::RobotContainer() {
    //wpi::outs() << "Debug Statement 1\n";
-    //*
-    m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
+   m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
     [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand)/2;} ,
-    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand)/1.5 ;}
-    //[this] {return 0.5;},
-    //[this] {return 0.0;}
-    ));
-   //*/
+    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand)/1.5;}
+   ));
    m_clawMotors.SetDefaultCommand(ClawMotorsDefault(&m_clawMotors));
-   /*
-   m_driveBase.SetDefaultCommand(Test(&m_driveBase, 
-    [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand);} ,
-    [this] { return -m_driverStick.GetY(frc::GenericHID::kLeftHand);}));
-    //*/
+   m_lift.SetDefaultCommand(LiftDefault(&m_lift, 
+    [this] { return m_manStick.GetY(frc::GenericHID::kLeftHand);}
+   ));
    //wpi::outs() << "Debug Statement 2\n";
   ConfigureButtonBindings();
 }

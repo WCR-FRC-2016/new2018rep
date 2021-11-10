@@ -25,11 +25,15 @@ const int backRightDrive = 0;
 const int clawLeftMotor = 10;
 const int clawRightMotor = 11;
 
+const int liftLeftMotor = 4;
+const int liftRightMotor = 5;
+
 const double RampTime = 0.325;
 
 const double NominalOutput = 0.25;
 const double MaxOutput = 1.0;
 
-const double PIDDeadband = 0.114; // needs to be tuned.
+const double PIDDeadband = 0.114; // TODO: PID needs to be tuned.
 
 const double clawMotorSpeed = 0.75;
+const double liftMotorSpeedFactor = 0.5;
