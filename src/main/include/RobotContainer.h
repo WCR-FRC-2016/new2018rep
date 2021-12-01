@@ -53,6 +53,14 @@ class RobotContainer {
   frc2::Button m_manY{[&] {return m_manStick.GetYButton();}};
   frc2::InstantCommand m_closeClaw{[this] {return m_clawPneumatics.CloseClaw();} , {&m_clawPneumatics} };
   
+  // Push Seatbelt - Manipulator L Trigger
+  frc2::Button m_manLT{[&] {return (0.2 < m_manStick.GetTriggerAxis(frc::GenericHID::kLeftHand));} };
+  frc2::InstantCommand m_pushBelt{[this] {return m_belt.Move(m_manStick.GetTriggerAxis(frc::GenericHID::kLeftHand));} , {&m_belt} };
+  
+  // Pull Seatbelt - Manipulator R Trigger
+  frc2::Button m_manRT{[&] {return (0.2 < m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} };
+  frc2::InstantCommand m_pullBelt{[this] {return m_belt.Move(-m_manStick.GetTriggerAxis(frc::GenericHID::kRightHand));} , {&m_belt} };
+  
   DriveBase m_driveBase;
   ClawPneumatics m_clawPneumatics;
   ClawMotors m_clawMotors;

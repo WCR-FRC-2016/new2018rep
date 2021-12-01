@@ -19,7 +19,7 @@ RobotContainer::RobotContainer() {
    ));
    m_belt.SetDefaultCommand(BeltDefault(&m_belt));
    //wpi::outs() << "Debug Statement 2\n";
-  ConfigureButtonBindings();
+   ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -29,4 +29,6 @@ void RobotContainer::ConfigureButtonBindings() {
    m_manB.WhileHeld(m_wheelsOut);
    m_manX.WhenPressed(m_openClaw);
    m_manY.WhenPressed(m_closeClaw);
+   m_manLT.WhileHeld(m_pushBelt);
+   m_manRT.WhileHeld(m_pullBelt);
 }
