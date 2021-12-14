@@ -9,6 +9,10 @@
 //
 #pragma once
 
+#include <string>
+#include <vector>
+#include <fstream>
+
 #include "frc/XboxController.h"
 #include "subsystems/DriveBase.h"
 #include "subsystems/ClawPneumatics.h"
@@ -32,6 +36,11 @@
 class RobotContainer {
  public:
   RobotContainer();
+
+  frc2::Command* GetAutonomousCommand();
+  void ReadFile();
+  
+  int command_no;
  
  private:
   frc::XboxController m_driverStick{0};
@@ -68,4 +77,7 @@ class RobotContainer {
   Belt m_belt;
 
   void ConfigureButtonBindings();
+
+  std::vector<std::string> commands;
+  std::fstream file {"/home/lvuser/autonomous.txt"};
 };

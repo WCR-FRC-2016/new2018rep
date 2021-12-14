@@ -10,6 +10,14 @@
 ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivebase});
+  m_time = -1;
+  m_elapsed = 0;
+}
+
+ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward, double time) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}, m_time{time}  {
+  // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({drivebase});
+  m_elapsed = 0;
 }
 
 // Called when the command is initially scheduled.
@@ -23,10 +31,11 @@ void ArcadeDrive::Execute() {
   //wpi::outs() << "ArcadeDrive functions\n";
   m_drivebase->ArcadeDrive(passRotation, passForward);
   //wpi::outs() << "ArcadeDrive ends\n";
+  m_elapsed += 20;
 }
 
 // Called once the command ends or is interrupted.
 void ArcadeDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() { return false; }
+bool ArcadeDrive::IsFinished() { return (m_time>0 && m_elapsed>m_time); }

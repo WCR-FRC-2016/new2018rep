@@ -35,7 +35,9 @@ void Robot::RobotPeriodic() {
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+  m_container.command_no = 0;
+}
 
 void Robot::DisabledPeriodic() {}
 
@@ -44,14 +46,25 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  //m_autonomousCommand = m_container.GetAutonomousCommand();
+  m_container.ReadFile();
 
-  //if (m_autonomousCommand != nullptr) {
-  //  m_autonomousCommand->Schedule();
-  //}
+  m_autonomousCommand = m_container.GetAutonomousCommand();
+
+  if (m_autonomousCommand != nullptr) {
+    m_autonomousCommand->Schedule();
+  }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+  if (m_autonomousCommand->IsFinished())
+  {
+    m_autonomousCommand = m_container.GetAutonomousCommand();
+
+    if (m_autonomousCommand != nullptr) {
+      m_autonomousCommand->Schedule();
+    }
+  }
+}
 
 void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when
