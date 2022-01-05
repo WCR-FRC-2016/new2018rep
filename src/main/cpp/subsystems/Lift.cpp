@@ -31,5 +31,5 @@ void Lift::Periodic() {
 }
 
 void Lift::Move(double speed){
-    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed * liftMotorSpeedFactor);
+    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed * robotConfig["liftMotorSpeedFactor"]);
 }

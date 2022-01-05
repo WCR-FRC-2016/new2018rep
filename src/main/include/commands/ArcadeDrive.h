@@ -11,6 +11,9 @@
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/DriveBase.h"
 
+#include <string>
+#include <fstream>
+
 /**
  * An example command.
  *

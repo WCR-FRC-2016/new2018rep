@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <map>
+#include <string>
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -31,13 +33,19 @@ const int liftRightMotor = 5;
 const int beltLeftMotor = 2;
 const int beltRightMotor = 3;
 
-const double RampTime = 0.325;
+// These aren't const because we might change them through a file.
+
+// Must be stored in map to be set from file.
+
+extern std::map<std::string, double> robotConfig;
+    /*
+    {"RampTime", 0.325},
+    {"PIDDeadband", 0.114}, // TODO: PID needs to be tuned.
+    {"clawMotorSpeed", 0.75},
+    {"liftMotorSpeedFactor", 0.5},
+    {"beltMotorSpeedFactor", 0.5},
+    */
+//};
 
 const double NominalOutput = 0.25;
 const double MaxOutput = 1.0;
-
-const double PIDDeadband = 0.114; // TODO: PID needs to be tuned.
-
-const double clawMotorSpeed = 0.75;
-const double liftMotorSpeedFactor = 0.5;
-const double beltMotorSpeedFactor = 0.5;

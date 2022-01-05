@@ -43,10 +43,10 @@ void DriveBase::DriveBaseInit() {
     BackR->ConfigPeakCurrentDuration(1000,0);
     BackL->ConfigPeakCurrentDuration(1000,0);
 
-    FrontL->ConfigOpenloopRamp(RampTime, 0);
-    FrontR->ConfigOpenloopRamp(RampTime, 0);
-    BackL->ConfigOpenloopRamp(RampTime, 0);
-    BackR->ConfigOpenloopRamp(RampTime, 0);
+    FrontL->ConfigOpenloopRamp(robotConfig["RampTime"], 0);
+    FrontR->ConfigOpenloopRamp(robotConfig["RampTime"], 0);
+    BackL->ConfigOpenloopRamp(robotConfig["RampTime"], 0);
+    BackR->ConfigOpenloopRamp(robotConfig["RampTime"], 0);
 
     FrontR->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
     FrontL->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
@@ -81,8 +81,8 @@ void DriveBase::DriveBaseInit() {
     FrontL->ConfigPeakOutputForward(MaxOutput, 0);
     FrontL->ConfigPeakOutputReverse(-MaxOutput, 0);
 
-    FrontR->ConfigNeutralDeadband(PIDDeadband, 0);
-    FrontL->ConfigNeutralDeadband(PIDDeadband, 0);
+    FrontR->ConfigNeutralDeadband(robotConfig["PIDDeadband"], 0);
+    FrontL->ConfigNeutralDeadband(robotConfig["PIDDeadband"], 0);
 
     FrontR->SetSelectedSensorPosition(0,0,0);
     FrontL->SetSelectedSensorPosition(0,0,0);
@@ -102,6 +102,11 @@ void DriveBase::DriveBaseInit() {
 		
 }
 void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
+	if (robotConfig["record"]>0)
+	{
+		recordfile << "replay " << xAxis << " " << yAxis << "\n";
+	}
+	
   	double parsedLeft;
 	double parsedRight;
 	double parsedX;
@@ -186,7 +191,7 @@ void DriveBase::ArcadeDrive(double xAxis, double yAxis) {
 
 }
 void DriveBase::RampSwitch(bool rampOn) {
-	double ramp = (rampOn)?RampTime:0;
+	double ramp = (rampOn)?robotConfig["RampTime"]:0;
 	FrontL->ConfigOpenloopRamp(ramp, 0);
     FrontR->ConfigOpenloopRamp(ramp, 0);
    	BackL->ConfigOpenloopRamp(ramp, 0);
@@ -220,4 +225,12 @@ void DriveBase::slowDrive (bool yButton) {
 		}
 		
 	}
+}
+
+void DriveBase::openFile() {
+	if (!recordfile.is_open()) recordfile.open("/home/lvuser/wcrj/replay.txt");
+}
+
+void DriveBase::closeFile() {
+	if (recordfile.is_open()) recordfile.close();
 }

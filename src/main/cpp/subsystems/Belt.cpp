@@ -31,5 +31,5 @@ void Belt::Periodic() {
 }
 
 void Belt::Move(double speed){
-    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed * beltMotorSpeedFactor);
+    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed * robotConfig["beltMotorSpeedFactor"]);
 }

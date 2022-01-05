@@ -13,7 +13,6 @@
 #include <vector>
 #include <fstream>
 
-#include "frc/XboxController.h"
 #include "subsystems/DriveBase.h"
 #include "subsystems/ClawPneumatics.h"
 #include "subsystems/ClawMotors.h"
@@ -23,6 +22,8 @@
 #include "commands/ClawMotorsDefault.h"
 #include "commands/LiftDefault.h"
 #include "commands/BeltDefault.h"
+#include "RobotMap.h"
+#include "frc/XboxController.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/Button.h>
 
@@ -39,6 +40,9 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
   void ReadFile();
+  void SetConfig();
+  void OpenDriveBaseFile();
+  void CloseDriveBaseFile();
   
   int command_no;
  
@@ -79,5 +83,6 @@ class RobotContainer {
   void ConfigureButtonBindings();
 
   std::vector<std::string> commands;
-  std::fstream file {"/home/lvuser/autonomous.txt"};
+  std::fstream file {"/home/lvuser/wcrj/autonomous.txt"};
+  std::fstream configfile {"/home/lvuser/wcrj/config.txt"};
 };

@@ -7,6 +7,15 @@
 
 #include "RobotContainer.h"
 
+std::map<std::string, double> robotConfig = {
+    {"RampTime", 0.325},
+    {"PIDDeadband", 0.114}, // TODO: PID needs to be tuned.
+    {"clawMotorSpeed", 0.75},
+    {"liftMotorSpeedFactor", 0.5},
+    {"beltMotorSpeedFactor", 0.5},
+    {"record", 0},
+};
+
 RobotContainer::RobotContainer() {
    m_driveBase.SetDefaultCommand(ArcadeDrive(&m_driveBase, 
     [this] { return m_driverStick.GetX(frc::GenericHID::kRightHand)/2;} ,
@@ -19,6 +28,8 @@ RobotContainer::RobotContainer() {
    m_belt.SetDefaultCommand(BeltDefault(&m_belt));
    
    ConfigureButtonBindings();
+
+   SetConfig();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -32,10 +43,18 @@ void RobotContainer::ConfigureButtonBindings() {
    m_manRT.WhileHeld(m_pullBelt);
 }
 
+void RobotContainer::OpenDriveBaseFile() {
+   m_driveBase.openFile();
+}
+
+void RobotContainer::CloseDriveBaseFile() {
+   m_driveBase.closeFile();
+}
+
 void RobotContainer::ReadFile() {
    // Reset file to start.
-   file.clear();
-   file.seekg(0, std::ios::beg);
+   file.close();
+   file.open("/home/lvuser/wcrj/autonomous.txt");
 
    // Read the file.
    std::string line;
@@ -45,22 +64,49 @@ void RobotContainer::ReadFile() {
    }
 }
 
+void RobotContainer::SetConfig() {
+   wpi::outs() << "Reading file!\n";
+
+   // Reset file to start.
+   configfile.close();
+   configfile.open("/home/lvuser/wcrj/config.txt");
+
+   std::string line;
+   //std::map<std::string,double>::iterator itr;
+   while (getline(configfile, line))
+   {
+      std::string name;
+      double value;
+      std::istringstream words (line);
+      words >> name;
+      words >> value;
+      wpi::outs() << name << " " << value << "\n";
+
+      // Write to variable
+      robotConfig[name] = value;
+   }
+}
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Read the file
 
    std::string command = commands.at(command_no);
    command_no++;
-   wpi::outs() << command << " " << command[0] << "\n";
+   wpi::outs() << command << "\n";
 
    std::string verb;
-   std::vector<int> args;
+   std::vector<double> args;
    std::istringstream words (command);
    words >> verb;
-   int num;
+   double num;
    while (words >> num)
    {
       args.push_back(num);
    }
 
-   return new ArcadeDrive(&m_driveBase, [this, args] {return args[0];}, [this, args] {return args[1];}, args[2]);
+   if (args.size()==3)
+   {
+      return new ArcadeDrive(&m_driveBase, [this, args] {return args[0];}, [this, args] {return args[1];}, args[2]);
+   }
+   return new ArcadeDrive(&m_driveBase, [this, args] {return args[0];}, [this, args] {return args[1];}, 1);
 }

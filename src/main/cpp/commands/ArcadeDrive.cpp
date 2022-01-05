@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/ArcadeDrive.h"
+#include "RobotMap.h"
 
 ArcadeDrive::ArcadeDrive(DriveBase* drivebase, std::function<double()> rotation, std::function<double()> forward) : m_drivebase{drivebase}, m_rotation{rotation}, m_forward{forward}  {
   // Use addRequirements() here to declare subsystem dependencies.

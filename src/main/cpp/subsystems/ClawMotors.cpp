@@ -26,13 +26,13 @@ void ClawMotors::Periodic() {
 }
 
 void ClawMotors::WheelsIn(){
-    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -clawMotorSpeed);
-    RightMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, clawMotorSpeed);
+    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -robotConfig["clawMotorSpeed"]);
+    RightMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, robotConfig["clawMotorSpeed"]);
 }
 
 void ClawMotors::WheelsOut(){
-    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, clawMotorSpeed);
-    RightMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -clawMotorSpeed);
+    LeftMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, robotConfig["clawMotorSpeed"]);
+    RightMotor->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -robotConfig["clawMotorSpeed"]);
 }
 
 void ClawMotors::Stop(){

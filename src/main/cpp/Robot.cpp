@@ -37,6 +37,8 @@ void Robot::RobotPeriodic() {
  */
 void Robot::DisabledInit() {
   m_container.command_no = 0;
+
+  m_container.CloseDriveBaseFile();
 }
 
 void Robot::DisabledPeriodic() {}
@@ -47,6 +49,7 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit() {
   m_container.ReadFile();
+  m_container.SetConfig();
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
@@ -75,6 +78,9 @@ void Robot::TeleopInit() {
   //  m_autonomousCommand->Cancel();
   //  m_autonomousCommand = nullptr;
   //}
+
+  m_container.SetConfig();
+  m_container.OpenDriveBaseFile();
 }
 
 /**

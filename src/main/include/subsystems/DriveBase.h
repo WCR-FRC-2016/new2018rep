@@ -10,6 +10,8 @@
 #include <ctre/Phoenix.h>
 #include <frc/drive/DifferentialDrive.h>
 
+#include <fstream>
+
 class DriveBase : public frc2::SubsystemBase {
  private:
   // It's desirable that everything possible under private except
@@ -24,6 +26,8 @@ class DriveBase : public frc2::SubsystemBase {
   WPI_TalonSRX * BackR;
   frc::DifferentialDrive * _diffDrive;
 
+  std::fstream recordfile {"/home/lvuser/wcrj/replay.txt"};
+
  public:
   DriveBase();
   void DriveBaseInit();
@@ -32,4 +36,6 @@ class DriveBase : public frc2::SubsystemBase {
   void RampSwitch(bool rampOn);
   void reverseDrive(bool bButton);
   void slowDrive(bool yButton);
+  void openFile();
+  void closeFile();
 };
